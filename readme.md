@@ -1,2 +1,6 @@
-# liopa.github.io
-Liopa GitHub Page
+# Liopa API Specification
+
+* Introduction
+* Key Functionality
+* Examples
+
