@@ -1,0 +1,418 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>LipSecure API Docs</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;java&quot;,&quot;python&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="shell">cURL</a>
+              <a href="#" data-language-name="java">Java</a>
+              <a href="#" data-language-name="python">Python</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <div id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#phrase-verifier" class="toc-h1 toc-link" data-title="phrase-verifier">Phrase Verifier</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-a-random-challenge-phrase" class="toc-h2 toc-link" data-title="get-a-random-challenge-phrase">Get a random challenge phrase</a>
+                  </li>
+                  <li>
+                    <a href="#verify-a-recorded-phrase" class="toc-h2 toc-link" data-title="verify-a-recorded-phrase">Verify a recorded phrase</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+          </li>
+      </div>
+        <ul class="toc-footer">
+            <li><a href='www.liopa.co.uk'>Liopa Website</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the Liopa LipSecure API!</p>
+
+<p>We have language bindings in cURL, Python and Java. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">lipsecure</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">lipsecure</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'38332b622aea11e8b103a860b60304d5'</span><span class="p">)</span>
+</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"lipsecure.com/api/verifier"</span>
+  -H <span class="s2">"Authorization: 38332b622aea11e8b103a860b60304d5"</span>
+  <span class="o">[</span>remaining payload]
+</code></pre>
+<blockquote>
+<p>Make sure to replace <code>38332b622aea11e8b103a860b60304d5</code> with your API key.</p>
+</blockquote>
+
+<p>LipSecure uses API keys to allow access to the API, by invitation only.</p>
+
+<p>LipSecure expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: 38332b622aea11e8b103a860b60304d5</code></p>
+
+<aside class="notice">
+You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your personal API key.
+</aside>
+<h1 id='phrase-verifier'>Phrase Verifier</h1><h2 id='get-a-random-challenge-phrase'>Get a random challenge phrase</h2><pre class="highlight shell tab-shell"><code><span class="c"># Without options</span>
+curl <span class="s2">"http://lipsecure.com/api/verifier"</span>
+  -H <span class="s2">"Authorization: 38332b622aea11e8b103a860b60304d5"</span>
+
+<span class="c"># With debug option DB_confidence to later return a confidence score of 91:</span>
+curl <span class="s2">"http://lipsecure.com/api/verifier?DB_confidence=91"</span>
+  -H <span class="s2">"Authorization: 38332b622aea11e8b103a860b60304d5"</span>
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="err">Without</span><span class="w"> </span><span class="err">options</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60b16364635111e8a3260025649ac4d8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bin blue in Y 9 please"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+
+  </span><span class="err">#</span><span class="w"> </span><span class="err">With</span><span class="w"> </span><span class="err">debug</span><span class="w"> </span><span class="err">option</span><span class="w"> </span><span class="err">DB_confidence</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">later</span><span class="w"> </span><span class="err">return</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">confidence</span><span class="w"> </span><span class="err">score</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="mi">91</span><span class="p">:</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60b16364635111e8a3260025649ac4d8"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bin blue in Y 9 please"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"DB_confidence"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint requests a random phrase from the LipSecure Phrase Verifier, returning the phrase and a transaction ID. Optional debug parameters can be specified to help test client workflows.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>GET http://lipsecure.com/api/verifier</code></p>
+<h3 id='valid-query-parameters'>Valid Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>DB_phraseID</td>
+<td>Random</td>
+<td>An integer indicating the phrase id to return in the range [1,333]</td>
+</tr>
+<tr>
+<td>DB_httpCode</td>
+<td>Automatic</td>
+<td>The HTTP error code to return from the follow up query below. Helps test client-side error handling.</td>
+</tr>
+<tr>
+<td>DB_confidence</td>
+<td>Random</td>
+<td>The integer between 0 and 100 to be returned. If not specified a random number will be selected.</td>
+</tr>
+<tr>
+<td>DB_callbackURL</td>
+<td>Direct response</td>
+<td>If specified and valid, the response object will have HTTP code 200 and the full result payload will be sent to the specified URL</td>
+</tr>
+</tbody></table>
+<h2 id='verify-a-recorded-phrase'>Verify a recorded phrase</h2><pre class="highlight shell tab-shell"><code><span class="c"># Note -d makes POST implicit, but for completeness:</span>
+curl <span class="s2">"http://lipsecure.com/api/verifier/60b16364635111e8a3260025649ac4d8"</span>
+  -H <span class="s2">"Authorization: 38332b622aea11e8b103a860b60304d5"</span>
+  -H <span class="s2">"Content-Type: application/octet-stream"</span>
+  -X POST
+  -d @&lt;filename&gt;
+</code></pre>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"60b16364635111e8a3260025649ac4d8"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phrase"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bin blue in Y 9 please"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"confidence"</span><span class="p">:</span><span class="w"> </span><span class="mi">91</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This endpoint verifies the phrase in the provided video.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST http://lipsecure.com/api/verifier/&lt;id&gt;</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The transaction ID, that must have been produced by the server using the preceeding GET request</td>
+</tr>
+</tbody></table>
+<h3 id='video-file-payload'>Video File Payload</h3>
+<p>The payload should be a compressed video file, containing a subject reciting the phrase. Resolution, frame rate, bitrate etc are all flexible. As a guideline, use MPEG-4 encoding of 640x480 video at 15 frames-per-second with a 1kbps bitrate.</p>
+<h1 id='errors'>Errors</h1>
+<p>The LipSecure Service uses the following HTTP Error Codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The URL is incorrect.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed -- You tried to access the service with an invalid method.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests -- You&#39;re making too many requests to the service in a short time period.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="shell">cURL</a>
+                <a href="#" data-language-name="java">Java</a>
+                <a href="#" data-language-name="python">Python</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
