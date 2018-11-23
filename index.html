@@ -246,9 +246,12 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#release-notes" class="toc-h1 toc-link" data-title="release-notes">Release Notes</a>
+          </li>
       </div>
         <ul class="toc-footer">
-            <li><a href='www.liopa.co.uk'>Liopa Website</a></li>
+            <li><a href='https://www.liopa.co.uk'>Liopa Website</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -257,9 +260,9 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Liopa LipSecure API!</p>
 
-<p>We have example calls in cURL and language bindings in Python and JavaScript (NodeJS) with Java to follow soon. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>We have example calls in cURL and language bindings in Python, JavaScript (NodeJS) and Java to follow soon. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 <h1 id='authentication'>Authentication</h1>
-<p>LipSecure uses API keys to grant access to the API. For access to the API contact us through our website https://liopa.co.uk/index.php/contact/</p>
+<p>LipSecure uses API keys to grant access to the API. For access to the API <a href="https://liopa.co.uk/index.php/contact/">contact us through our website</a></p>
 
 <p>LipSecure expects for the API key to be included in all API requests to the server in a header as follows:</p>
 
@@ -298,7 +301,7 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 </span></code></pre>
 <p>This endpoint requests a random phrase from the LipSecure Phrase Verifier, returning the phrase and a transaction ID. The transaction ID will be used in subsequent calls.</p>
 
-<p><strong>Endpoint:</strong> challenge<br>
+<p><strong>Endpoint:</strong> <code>challenge</code><br>
 <strong>Method:</strong> POST<br>
 <strong>Header:</strong> <code>X-API-KEY : &lt;key&gt;</code><br>
 <strong>Returns:</strong> 200 OK with JSON body</p>
@@ -327,17 +330,19 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 </span></code></pre>
 <p>This endpoint verifies the phrase in the provided video matches what was expected.</p>
 
-<p><strong>Endpoint:</strong> verifier/<transactionId><br>
+<p><strong>Endpoint:</strong> <code>verifier/&lt;transactionId&gt;</code><br>
 <strong>Method:</strong> POST<br>
 <strong>Header:</strong> <code>X-API-KEY : &lt;key&gt;</code><br>
-<strong>Type:</strong> Multipart upload with video included via the <code>file</code> attribute
+<strong>Type:</strong> Multipart upload with video included via the <code>file</code> attribute<br>
 <strong>Returns:</strong> 200 OK with JSON body</p>
 
 <p>The transaction ID must match what was returned from the preceding call to <code>challenge</code>. The uploaded video file must be labelled with a <code>file</code> attribute.</p>
 <h3 id='video-file-payload'>Video File Payload</h3>
 <p>The payload should be a compressed video file, containing a subject reciting the phrase. Resolution, frame rate, bitrate etc are all flexible. As a guideline from a mobile phone forward-facing camera, use MPEG-4 encoding of 640x480 video at 15 frames-per-second with a 1kbps bitrate.</p>
 <h1 id='errors'>Errors</h1>
+<blockquote>
 <p>The JSON format for errors is as follows:</p>
+</blockquote>
 <pre class="highlight json tab-json"><code><span class="s2">"error"</span><span class="w"> </span><span class="p">:</span><span class="w">
     </span><span class="p">{</span><span class="w">
         </span><span class="s2">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">one</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">'client'</span><span class="p">,</span><span class="w"> </span><span class="err">'server'</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">'user'</span><span class="p">,</span><span class="w">
@@ -347,19 +352,19 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 </span></code></pre>
 <p>The LipSecure service returns JSON objects with a standard format to simplify the engineering effort of integration. The JSON object will contain an error object, that normally will have a status of &#39;no error&#39;.</p>
 
-<p>There are three types of error:
-1. User
-2. Client
-3. Server</p>
+<p>There are three types of error:<br>
+1. User<br>
+2. Client<br>
+3. Server  </p>
 
 <p>User errors are intended to be passed on so the user can correct the problem and retry. Examples of user errors are:
-1. Video too short
-2. Poor illumination
-3. Face not presented to the camera correctly</p>
+1. Video too short<br>
+2. Poor illumination<br>
+3. Face not presented to the camera correctly  </p>
 
-<p>Client errors are usually the result of integration problems and can be mitigated using error handling during integration with LipSecure. Examples of client errors are:
-1. Bad request (400) - the request has not been correctly created, e.g. not using the correct attribute <code>file</code> for the video upload
-2. Unauthorized (401) - the incorrect API key is inserted into the header</p>
+<p>Client errors are usually the result of integration problems and can be mitigated using error handling during integration with LipSecure. Examples of client errors are:<br>
+1. Bad request (400) - the request has not been correctly created, e.g. not using the correct attribute <code>file</code> for the video upload<br>
+2. Unauthorized (401) - the incorrect API key is inserted into the header  </p>
 
 <p>Server errors are due to problems within the LipSecure service. This should happen rarely, but if it does then neither the user nor client can remedy the situation. Server errors can be resolved by contacting support@liopa.co.uk.</p>
 <h2 id='list-of-error-codes'>List of error codes</h2>
@@ -391,6 +396,9 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 <td>Internal Server Error -- Contact support@liopa.co.uk</td>
 </tr>
 </tbody></table>
+<h1 id='release-notes'>Release Notes</h1>
+<p>v1.0 23rd November 2018
+Initial API release</p>
 
       </div>
       <div class="dark-box">
