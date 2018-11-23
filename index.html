@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <title>LipSecure API Docs</title>
 
     <style>
@@ -226,18 +225,26 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
           </li>
           <li>
+            <a href="#api-design" class="toc-h1 toc-link" data-title="api-design">API Design</a>
+          </li>
+          <li>
             <a href="#phrase-verifier" class="toc-h1 toc-link" data-title="phrase-verifier">Phrase Verifier</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-a-random-challenge-phrase" class="toc-h2 toc-link" data-title="get-a-random-challenge-phrase">Get a random challenge phrase</a>
+                    <a href="#1-get-a-random-challenge-phrase-from-lipsecure" class="toc-h2 toc-link" data-title="1-get-a-random-challenge-phrase-from-lipsecure">1. Get a random challenge phrase from LipSecure</a>
                   </li>
                   <li>
-                    <a href="#verify-a-recorded-phrase" class="toc-h2 toc-link" data-title="verify-a-recorded-phrase">Verify a recorded phrase</a>
+                    <a href="#2-verify-a-recorded-phrase" class="toc-h2 toc-link" data-title="2-verify-a-recorded-phrase">2. Verify a recorded phrase</a>
                   </li>
               </ul>
           </li>
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#list-of-error-codes" class="toc-h2 toc-link" data-title="list-of-error-codes">List of error codes</a>
+                  </li>
+              </ul>
           </li>
       </div>
         <ul class="toc-footer">
@@ -250,36 +257,36 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Liopa LipSecure API!</p>
 
-<p>We have language bindings in cURL, with Python and Java to follow soon. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>We have example calls in cURL and language bindings in Python and JavaScript (NodeJS) with Java to follow soon. You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-       <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl -X POST “https://beingbuilt.lipsecure.com/LiopaAPI/api/challenge”
-  -H  “X-API-Key: 38332b622aea11e8b103a860b60304d5”
-  <span class="o">[</span>remaining payload]
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>38332b622aea11e8b103a860b60304d5</code> with your API key.</p>
-</blockquote>
+<p>LipSecure uses API keys to grant access to the API. For access to the API contact us through our website https://liopa.co.uk/index.php/contact/</p>
 
-<p>LipSecure uses API keys to allow access to the API, by invitation only.</p>
-
-<p>LipSecure expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>LipSecure expects for the API key to be included in all API requests to the server in a header as follows:</p>
 
 <p><code>X-API-Key: 38332b622aea11e8b103a860b60304d5</code></p>
 
 <aside class="notice">
 You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your personal API key.
 </aside>
-<h1 id='phrase-verifier'>Phrase Verifier</h1><h2 id='get-a-random-challenge-phrase'>Get a random challenge phrase</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://beingbuilt.lipsecure.com/LiopaAPI/api/challenge"</span> -H  <span class="s2">"accept: application/json"</span> -H  <span class="s2">"X-API-Key: 38332b622aea11e8b103a860b60304d5"</span> -H  <span class="s2">"content-type: application/json"</span> -d <span class="s2">""</span><span class="o">{}</span><span class="s2">""</span>
+<h1 id='api-design'>API Design</h1>
+<p>The purpose of the LipSecure service is to prove liveness. Given a video of a person asked to recite a given phrase, LipSecure will indicate the confidence that the person was responding correctly.</p>
+
+<p>For more information and examples <a href="https://liopa.co.uk/index.php/contact/">contact us</a></p>
+
+<p>The liveness check process is completed in two phases:
+1. Request a challenge phrase and start a transaction, receiving a transaction ID and a phrase
+2. Send a video of the user reciting the challenge phrase with the transaction ID and receive a confidence score</p>
+
+<p>The base URL for the LipSecure API is: <code>https://api.lipsecure.com/LiopaAPI/api</code></p>
+
+<p>The API is designed to always return a consistent response from each endpoint. As such, errors are embedded in the JSON body. Standard HTTP codes are used to denote common problems. More details can be found in the errors section.</p>
+<h1 id='phrase-verifier'>Phrase Verifier</h1><h2 id='1-get-a-random-challenge-phrase-from-lipsecure'>1. Get a random challenge phrase from LipSecure</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.lipsecure.com/LiopaAPI/api/challenge"</span> -H  <span class="s2">"X-API-Key: 38332b622aea11e8b103a860b60304d5"</span>
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="w">  </span><span class="p">{</span><span class="w">
-      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ef5a0ae2-884e-4106-b247-b332a0f9dd88"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"transactionId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ef5a0ae2-884e-4106-b247-b332a0f9dd88"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"phrase"</span><span class="p">:</span><span class="s2">"597692"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"error"</span><span class="p">:</span><span class="w">
         </span><span class="p">{</span><span class="w">
@@ -290,18 +297,24 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
     </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint requests a random phrase from the LipSecure Phrase Verifier, returning the phrase and a transaction ID. The transaction ID will be used in subsequent calls.</p>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://beingbuilt.lipsecure.com/LiopaAPI/api/challenge</code></p>
-<h2 id='verify-a-recorded-phrase'>Verify a recorded phrase</h2><pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://beingbuilt.lipsecure.com/LiopaAPI/api/verifier/ef5a0ae2-884e-4106-b247-b332a0f9dd88"</span>
-    -H  <span class="s2">"accept: application/json"</span>
-    -H  <span class="s2">"X-API-Key: 38332b622aea11e8b103a860b60304d5"</span>
-    -F ‘upload<span class="o">=</span>@&lt;video_file&gt;’
+
+<p><strong>Endpoint:</strong> challenge<br>
+<strong>Method:</strong> POST<br>
+<strong>Header:</strong> <code>X-API-KEY : &lt;key&gt;</code><br>
+<strong>Returns:</strong> 200 OK with JSON body</p>
+<h2 id='2-verify-a-recorded-phrase'>2. Verify a recorded phrase</h2>
+<blockquote>
+<p>The last part of the URI contains the transaction ID from the previous call. The video file should consist of a user reciting the phrase returned in the previous call.</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code>curl -X POST <span class="s2">"https://api.lipsecure.com/LiopaAPI/api/verifier/ef5a0ae2-884e-4106-b247-b332a0f9dd88"</span> <span class="se">\</span>
+    -H  <span class="s2">"X-API-Key: 38332b622aea11e8b103a860b60304d5"</span> <span class="se">\</span>
+    -F ‘file<span class="o">=</span>@&lt;video_file&gt;’
 </code></pre>
 <blockquote>
 <p>The above command returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ef5a0ae2-884e-4106-b247-b332a0f9dd88"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"transactionId"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"61ffbb7c-e314-4f6e-a34b-cf762813e2b3"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"phrase"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"597692"</span><span class="p">,</span><span class="w">
     </span><span class="s2">"confidence"</span><span class="p">:</span><span class="mi">84</span><span class="p">,</span><span class="w">
     </span><span class="s2">"error"</span><span class="w"> </span><span class="p">:</span><span class="w">
@@ -312,46 +325,69 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
         </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint verifies the phrase in the provided video.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST http://lipsecure.com/api/verifier/&lt;id&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>id</td>
-<td>The transaction ID, that must have been produced by the server using the preceeding GET request</td>
-</tr>
-</tbody></table>
-<h3 id='video-file-payload'>Video File Payload</h3>
-<p>The payload should be a compressed video file, containing a subject reciting the phrase. Resolution, frame rate, bitrate etc are all flexible. As a guideline, use MPEG-4 encoding of 640x480 video at 15 frames-per-second with a 1kbps bitrate.</p>
-<h1 id='errors'>Errors</h1>
-<p>The LipSecure Service will return JSON payloads containing error details. The JSON format for errors is as follows:
-<code>json
-&quot;error&quot; :
-    {
-        &quot;type&quot; : # one of &#39;client&#39;, &#39;server&#39; or &#39;user&#39;,
-        &quot;code&quot;: &lt;id&gt;,
-        &quot;message&quot;: # string with description
-    }
-</code></p>
+<p>This endpoint verifies the phrase in the provided video matches what was expected.</p>
 
+<p><strong>Endpoint:</strong> verifier/<transactionId><br>
+<strong>Method:</strong> POST<br>
+<strong>Header:</strong> <code>X-API-KEY : &lt;key&gt;</code><br>
+<strong>Type:</strong> Multipart upload with video included via the <code>file</code> attribute
+<strong>Returns:</strong> 200 OK with JSON body</p>
+
+<p>The transaction ID must match what was returned from the preceding call to <code>challenge</code>. The uploaded video file must be labelled with a <code>file</code> attribute.</p>
+<h3 id='video-file-payload'>Video File Payload</h3>
+<p>The payload should be a compressed video file, containing a subject reciting the phrase. Resolution, frame rate, bitrate etc are all flexible. As a guideline from a mobile phone forward-facing camera, use MPEG-4 encoding of 640x480 video at 15 frames-per-second with a 1kbps bitrate.</p>
+<h1 id='errors'>Errors</h1>
+<p>The JSON format for errors is as follows:</p>
+<pre class="highlight json tab-json"><code><span class="s2">"error"</span><span class="w"> </span><span class="p">:</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"type"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">one</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">'client'</span><span class="p">,</span><span class="w"> </span><span class="err">'server'</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">'user'</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;id&gt;</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="err">string</span><span class="w"> </span><span class="err">with</span><span class="w"> </span><span class="err">description</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>The LipSecure service returns JSON objects with a standard format to simplify the engineering effort of integration. The JSON object will contain an error object, that normally will have a status of &#39;no error&#39;.</p>
+
+<p>There are three types of error:
+1. User
+2. Client
+3. Server</p>
+
+<p>User errors are intended to be passed on so the user can correct the problem and retry. Examples of user errors are:
+1. Video too short
+2. Poor illumination
+3. Face not presented to the camera correctly</p>
+
+<p>Client errors are usually the result of integration problems and can be mitigated using error handling during integration with LipSecure. Examples of client errors are:
+1. Bad request (400) - the request has not been correctly created, e.g. not using the correct attribute <code>file</code> for the video upload
+2. Unauthorized (401) - the incorrect API key is inserted into the header</p>
+
+<p>Server errors are due to problems within the LipSecure service. This should happen rarely, but if it does then neither the user nor client can remedy the situation. Server errors can be resolved by contacting support@liopa.co.uk.</p>
+<h2 id='list-of-error-codes'>List of error codes</h2>
 <table><thead>
 <tr>
 <th>Error Code</th>
-<th>Meaning</th>
+<th>Type</th>
+<th>Meaning and Remediation</th>
 </tr>
 </thead><tbody>
 <tr>
+<td>xxx</td>
+<td>User</td>
+<td>Pass on the error to the user for another attempt</td>
+</tr>
+<tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Client</td>
+<td>Bad Request - the request is invalid, check the request format</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Client</td>
+<td>Unauthorized - check the URI and API key</td>
 </tr>
 <tr>
 <td>500</td>
+<td>Server</td>
 <td>Internal Server Error -- Contact support@liopa.co.uk</td>
 </tr>
 </tbody></table>
