@@ -239,6 +239,12 @@
               </ul>
           </li>
           <li>
+            <a href="#confidence-scoring" class="toc-h1 toc-link" data-title="confidence-scoring">Confidence Scoring</a>
+          </li>
+          <li>
+            <a href="#android-sdk" class="toc-h1 toc-link" data-title="android-sdk">Android SDK</a>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
               <ul class="toc-list-h2">
                   <li>
@@ -339,6 +345,65 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 <p>The transaction ID must match what was returned from the preceding call to <code>challenge</code>. The uploaded video file must be labelled with a <code>file</code> attribute.</p>
 <h3 id='video-file-payload'>Video File Payload</h3>
 <p>The payload should be a compressed video file, containing a subject reciting the phrase. Resolution, frame rate, bitrate etc are all flexible. As a guideline from a mobile phone forward-facing camera, use MPEG-4 encoding of 640x480 video at 15 frames-per-second with a 1kbps bitrate.</p>
+<h1 id='confidence-scoring'>Confidence Scoring</h1>
+<p>The score which is returned to the user ranges from 0 to 100 and represents the estimated percentage probability that the video was a valid ‘live’ response to the challenge phrase. For example, if the score returned was 90 then this means that there is a 10% chance that the video was an imposter attack.</p>
+
+<p>As a brief guide to setting a threshold, our tests have shown that for a threshold of 98, there is approximately a 2% chance of False Acceptance and a 4% chance of False Rejection and for a score of 99, we have no recorded False Acceptances in any test cases and approximately 5% chance of False Rejection.</p>
+
+<p>The scores which LipSecure calculates for each video are influenced by a range of factors during the recording process, including illumination conditions etc. but they are chiefly affected by how clearly the person moves their lips while speaking the digits.</p>
+
+<p>For each application in which LipSecure will be deployed there may be certain minimum threshold confidence scores which will be appropriate so we will allow the application developers to set their own threshold levels rather than prescribing them.</p>
+
+<aside class="notice">
+In the current implementation of the confidence scoring if the result is below 98% then the video should be treated as unreliable.
+</aside> 
+<h1 id='android-sdk'>Android SDK</h1>
+<p>An Android SDK is available for integrating LipSecure in an existing or new Android application.</p>
+
+<table><thead>
+<tr>
+<th>Version</th>
+<th>SDK Download</th>
+<th>MD5 Hash</th>
+<th>Documentation</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1.0.0</td>
+<td><a href="https://lipsecure.com/releases/mobile/android/lipsecuresdk-1.0.0.zip">SDK</a></td>
+<td>b2ff566b8c2039ff2c33f18abe641c82</td>
+<td><a href="https://lipsecure.com/releases/mobile/android/LipSecure-Android-SDK--Developer-Guide-v1.0.pdf">Dev Guide</a> <a href="https://lipsecure.com/releases/mobile/android/LipSecure-AndroidSDK-ReleaseNotes.txt">Release Notes</a></td>
+</tr>
+</tbody></table>
+
+<!--
+<table>
+    <thead>
+        <tr>
+            <th>Layer 1</th>
+            <th>Layer 2</th>
+            <th>Layer 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan=4>L1 Name</td>
+            <td rowspan=2>L2 Name A</td>
+            <td>L3 Name A</td>
+        </tr>
+        <tr>
+            <td>L3 Name B</td>
+        </tr>
+        <tr>
+            <td rowspan=2>L2 Name B</td>
+            <td>L3 Name C</td>
+        </tr>
+        <tr>
+            <td>L3 Name D</td>
+        </tr>
+    </tbody>
+</table>
+-->
 <h1 id='errors'>Errors</h1>
 <blockquote>
 <p>The JSON format for errors is as follows:</p>
@@ -397,8 +462,24 @@ You must replace <code>38332b622aea11e8b103a860b60304d5</code> with your persona
 </tr>
 </tbody></table>
 <h1 id='release-notes'>Release Notes</h1>
-<p>v1.0 23rd November 2018
-Initial API release</p>
+<table><thead>
+<tr>
+<th>Version</th>
+<th>Date</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>1.1</td>
+<td>2019-01-08</td>
+<td>Updated information on Android SDK</td>
+</tr>
+<tr>
+<td>1.0</td>
+<td>2018-11-23</td>
+<td>Initial API release</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
